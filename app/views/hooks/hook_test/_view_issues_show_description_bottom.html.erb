@@ -1,0 +1,58 @@
+<hr>
+<p><strong>Easy Test</strong></p>
+<table id="easy-test">
+  <tr>
+    <td>
+      <p>Content</p>
+      <a href="#" id="test-content"><% if @test.content == "" %>Empty<% else %><%= @test.content %><% end %></a>
+    </td>
+    <td>
+      <p>Result</p>
+      <a href="#" id="test-result">
+        <% if @test.result == 0 %>-<% elsif @test.result == 1 %>OK<% else %>NG<% end %>
+      </a>
+    </td>
+  </tr>
+</table>
+<input id="test-id" type="hidden" value="<%= @test.id %>">
+<link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/jquery-editable/css/jquery-editable.css" rel="stylesheet"/>
+<script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/jquery-editable/js/jquery-editable-poshytip.min.js"></script>
+<style type="text/css">
+table#easy-test {
+  width: 100%;
+}
+table#easy-test tr td:first-child {
+  width: 66%;
+}
+table#easy-test tr td:last-child {
+  width: 34%;
+  vertical-align: top;
+}
+div.editable-input textarea {
+  width: 500px;
+}
+div.editable-input select {
+  width: 100px;
+}
+</style>
+<script>
+$(function() {
+  $.fn.editable.defaults.url = window.location.href + '/tests/' + $("#test-id").val();
+  $.fn.editable.defaults.mode = 'inline';
+  $.fn.editable.defaults.showbuttons = 'bottom';
+
+  $('#test-content').editable({
+    type: 'textarea',
+    pk: 1
+  });
+  $('#test-result').editable({
+    type: 'select',
+    pk: 2,
+    source: [
+      { value: 0, text: '-'  },
+      { value: 1, text: 'OK' },
+      { value: 2, text: 'NG' }
+    ]
+  });
+});
+</script>
